@@ -181,7 +181,7 @@ $("button[name='add']").attr('disabled',false);
   </div>
 </div>  
     </td>
-   <td  name="periodo" class="editeable">{!!Form::text('group',$u->periodo)!!}</td>
+   <td  name="periodo" class="editeable">{!!Form::text('period',$u->periodo)!!}</td>
     <td  title="date">
       {!!Form::date('fecha_in',\Carbon\Carbon::parse($u->fecha_ini)->format('Y-m-d'))!!}
   
