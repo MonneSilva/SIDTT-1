@@ -48,31 +48,27 @@
 </thead>
  <tbody>
     @foreach($uni as $u)
-   <tr>
-    <td title="clave" contenteditable="true" class="editeable">123456</td>
- <td  title="ua"  class="editeable" > {{$u->unidad}}
-    <select class="custom-select form-control" id="inputGroupSelect04">
-    <option selected>Choose...</option>
-    <option value="1">Trabajo Termianl I</option>
-    <option value="2">Trabajo Termianl II</option>
-  </select>
+  <tr id="{{$u->idUnidad_Aprendizaje}}">
+    <td name="clave"   contentEditable="false" class="editeable"> {!!Form::text('clave')!!}</td>
+ <td name="ua" >{!!Form::select('unidad',$unid, $unid[$u->tipo])!!}
     </td>
-    <td title="group"   contenteditable="true" class="editeable"> {{$u->grupo}}</td>
-    <td  title="name"  contenteditable="true" class="editeable"> <div class="input-group">
-   {!!Form::select('d_titular',$docentes, $u->d_titular, ['class'=>'custom-select form-control', 'id' => 'inputGroupSelect04'])!!}
-  </select>
+    <td name="group"  class="editeable"> {!!Form::text('group',$u->grupo)!!}</td>
+    <td  name="name"  > 
+    <div class="input-group">
+   {!!Form::select('d_titular',$docentes, $u->d_titular)!!}
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary material-icons" type="button" title="Curriculim">assignment_ind</button>
+    <button id="curriculum" class="btn btn-outline-secondary material-icons" type="button" name="curriculum" >assignment_ind</button>
   </div>
 </div>  
     </td>
-    <td  title="periodo" contenteditable="true"  class="editeable">{{$u->periodo}}</td>
-    <td  title="date"  class="editeable">
-      {!!Form::date('fecha_ini',\Carbon\Carbon::parse($u->fecha_ini)->format('d/m/Y'), ['class' => 'form-control'])!!}
+   <td  name="periodo" class="editeable">{!!Form::text('group',$u->periodo)!!}</td>
+    <td  title="date">
+      {!!Form::date('fecha_in',\Carbon\Carbon::parse($u->fecha_ini)->format('Y-m-d'))!!}
+  
     </td>
-    <td  title="date" class="editeable">
-       {!!Form::date('fecha_fin',\Carbon\Carbon::parse($u->fecha_fin)->format('d/m/Y'), ['class' => 'form-control'])!!}
-     <td title="state"   class="editeable">
+    <td  title="date">
+       {!!Form::date('fecha_fin',\Carbon\Carbon::parse($u->fecha_ini)->format('Y-m-d'))!!}
+     <td title="state" >
   @if($u->deleted_at == null)
   <label>Activo</label>
   @else
