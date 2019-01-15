@@ -22,9 +22,11 @@ class ctrlAdminUnidades extends Controller
      */
     public function index()
     {
-        $uni = unidades::withTrashed()->get();
+       $uni = unidades::withTrashed()->paginate(6);
+      $unid[0] = "Trabajo Terminal I";
+      $unid[1] = "Trabajo Terminal II";
         $docentes = usuarios::select(DB::raw("CONCAT(nombre,' ',ape_pat,' ',ape_mat) AS nombre"),'idUsuario','tipo')->where('tipo','=','docente')->orderBy('nombre')->pluck('nombre','idUsuario');
-       return view('administrador.crud_unidades.index',compact('uni','docentes'));
+       return view('administrador.crud_unidades.index',compact('uni','docentes','unid'));
     }
     /**
      * Show the form for creating a new resource.
