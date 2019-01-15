@@ -47,6 +47,126 @@
 </tr>
 </thead>
  <tbody>
+     <script type="text/javascript">
+
+  
+  $( document ).ready(function() {
+
+
+    $("tbody input, tbody select, button#curriculum").attr('disabled',true);
+    $("thead input, thead select").attr('class','form-control');
+    $("#new").hide();
+
+});
+ $('#addBtn').on('click', function ()
+  {
+$("#new").show();
+$("button[name='add']").attr('disabled',true);
+
+  });
+
+function save(btnId){
+
+var clave = $("tr#"+btnId+" input[name='clave']").val(); 
+var unidad = $("tr#"+btnId+" select[name='unidad'] option:selected").val(); 
+var group = $("tr#"+btnId+" input[name='group']").text(); 
+var d_titular = $("tr#"+btnId+" select[name='d_titular'] option:selected").val(); 
+var periodo = $("tr#"+btnId+" input[name='periodo']").text(); 
+var date = new Date($("tr#"+btnId+" input[type='date'][name='fecha_in']").val());
+  var day = date.getDate()+ 1;
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+var datein =([day, month, year].join('/'));
+  var date = new Date($("tr#"+btnId+" input[type='date'][name='fecha_fin']").val());
+  var day = date.getDate()+ 1;
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+  var datefin=([day, month, year].join('/'));
+  //reset values 
+alert(datefin);
+if(btnId=="new")
+{
+  $("tr#"+btnId+" input").val("");  
+
+  $("tr#"+btnId).hide();
+
+$("button[name='add']").attr('disabled',false);
+}
+}
+
+ 
+
+$(document).ready(function(){
+    $('.Btn1').on('click',function(){
+      //Comprobar si se editara o guardara
+      var btnId = $(this).closest("tr").attr('id');
+
+if ( $("tr#"+btnId+" td[name='clave']").attr('contentEditable')=="false") //Editar
+{
+  
+    $( "tr#"+btnId+" i[name='bedit']" ).html( 'save' );
+    $( "tr#"+btnId+" i[name='bdelete']" ).html( 'close' );
+    $("tr#"+btnId+" input,tr#"+btnId+" select").attr('disabled',false);
+    $("tr#"+btnId+" button[name='curriculum']").attr('disabled',false);
+    $("tr#"+btnId+" select,tr#"+btnId+" input").attr('class','form-control');
+
+    $("tr#"+btnId+" td[name='clave']").attr('contentEditable',true);
+    $(this).stop();
+}
+else //Guardar
+{
+  if(btnId!="new"){
+  $("tr#"+btnId+" td[name='clave']").attr('contentEditable',false);
+    $( "tr#"+btnId+" i[name='bedit']" ).html( 'edit' );
+    $( "tr#"+btnId+" i[name='bdelete']" ).html( 'block' );
+    
+       $("tr#"+btnId+" input,tr#"+btnId+" select").attr('disabled',true);
+    $("tr#"+btnId+" button[name='curriculum']").attr('disabled',true);
+    $("tr#"+btnId+" select,tr#"+btnId+" input").attr('class','');
+    }
+     save(btnId);
+     $(this).stop();
+}
+
+        
+    });  
+  
+    $('.Btn2').on('click',function(){
+      //Comprobar si se borra o cancela
+      var btnId = $(this).closest("tr").attr('id');
+
+if ( $("tr#"+btnId+" td[name='clave']").attr('contentEditable')=="false") //Borrar o desactivar
+{
+  
+    //desactivar o activar al usuario
+    $(this).stop();
+}
+else //cancel
+{ 
+  if(btnId!="new")
+  {
+  $("tr#"+btnId+" td[name='clave']").attr('contentEditable',false);
+    $( "tr#"+btnId+" i[name='bedit']" ).html( 'edit' );
+    $( "tr#"+btnId+" i[name='bdelete']" ).html( 'block' );
+    $("tr#"+btnId+" input,tr#"+btnId+" select").attr('disabled',true);
+    $("tr#"+btnId+" button[name='curriculum']").attr('disabled',true);
+     $("tr#"+btnId+" select,tr#"+btnId+" input[type='date']").attr('class','');
+    
+   }else{
+      $("tr#"+btnId+" input").val("");  
+
+  $("tr#"+btnId).hide();
+
+$("button[name='add']").attr('disabled',false);
+
+   }
+    $(this).stop();
+}
+
+        
+    });  
+  });
+</script>
     @foreach($uni as $u)
   <tr id="{{$u->idUnidad_Aprendizaje}}">
     <td name="clave"   contentEditable="false" class="editeable"> {!!Form::text('clave')!!}</td>
